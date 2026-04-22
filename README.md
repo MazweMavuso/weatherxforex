@@ -1,5 +1,7 @@
 # 🌤️ SkyCast: Weather & Forex Platform
 
+**[Live Demo](https://weatherxforex.vercel.app/)**
+
 A professional-grade dashboard for weather and financial insights, **100% vibe-coded** using the **Gemini CLI model** directly from the command prompt.
 
 ## 🚀 The AI Software Engineer Mission
