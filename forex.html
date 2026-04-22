@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyCast | Forex Rates</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js for the growth graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body id="forex-page">
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    
+    <div class="app-container">
+        <nav class="glass navbar">
+            <div class="nav-logo">SkyCast</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Weather</a></li>
+                <li><a href="forex.html" class="active">Forex</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <p id="forex-status">Loading market data...</p>
+        </header>
+
+        <!-- Main Rates Card -->
+        <main class="glass forex-card">
+            <div class="forex-header">
+                <div class="header-title-group">
+                    <h2 id="chart-title">EUR/USD Trend</h2>
+                    <div class="chart-controls">
+                        <select id="chart-base">
+                            <option value="EUR" selected>EUR</option>
+                            <option value="USD">USD</option>
+                            <option value="GBP">GBP</option>
+                            <option value="ZAR">ZAR</option>
+                        </select>
+                        <i data-lucide="arrow-right" class="control-icon"></i>
+                        <select id="chart-target">
+                            <option value="USD" selected>USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="JPY">JPY</option>
+                            <option value="ZAR">ZAR</option>
+                            <option value="SZL">SZL</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="current-rate" id="main-rate">--</p>
+            </div>
+            <div class="graph-container">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </main>
+
+        <!-- Quick Converter -->
+        <section class="glass converter-card">
+            <h3 class="converter-title">Currency Converter</h3>
+            <div class="converter-form">
+                <div class="input-group">
+                    <input type="number" id="convert-amount" value="1" placeholder="Amount" />
+                    <select id="from-currency">
+                        <option value="USD" selected>USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="JPY">JPY</option>
+                        <option value="ZAR">ZAR</option>
+                        <option value="SZL">SZL</option>
+                    </select>
+                </div>
+                <div class="swap-icon" id="swap-currencies">
+                    <i data-lucide="repeat"></i>
+                </div>
+                <div class="input-group">
+                    <div class="result-display" id="convert-result">--</div>
+                    <select id="to-currency">
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="JPY">JPY</option>
+                        <option value="ZAR">ZAR</option>
+                        <option value="SZL" selected>SZL</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Secondary Rates Grid -->
+        <section class="rates-grid">
+            <div class="rate-item glass">
+                <span class="currency">USD/GBP</span>
+                <span class="value" id="rate-GBP">--</span>
+            </div>
+            <div class="rate-item glass">
+                <span class="currency">USD/JPY</span>
+                <span class="value" id="rate-JPY">--</span>
+            </div>
+            <div class="rate-item glass">
+                <span class="currency">USD/ZAR</span>
+                <span class="value" id="rate-ZAR">--</span>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>© 2026 SkyCast Finance</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

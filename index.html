@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyCast | Modern Weather</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    
+    <div class="app-container">
+        <nav class="glass navbar">
+            <div class="nav-logo">SkyCast</div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Weather</a></li>
+                <li><a href="forex.html">Forex</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <p id="status">Fetching location...</p>
+        </header>
+
+        <!-- Main weather card -->
+        <main id="weather" class="weather-card glass hidden">
+            <div class="weather-main">
+                <div class="weather-info">
+                    <h2 id="location"></h2>
+                    <p class="desc" id="description"></p>
+                </div>
+                <div class="weather-icon-large" id="main-icon">
+                    <!-- Icon injected by JS -->
+                </div>
+            </div>
+            <div class="weather-details">
+                <p class="temp" id="temperature"></p>
+                <div class="insight-badge" id="daily-insight">
+                    <!-- Summary text -->
+                </div>
+            </div>
+            
+            <div class="insights-grid">
+                <div class="insight-item">
+                    <i data-lucide="droplets"></i>
+                    <span class="label">Humidity</span>
+                    <span class="value" id="humidity">--</span>
+                </div>
+                <div class="insight-item">
+                    <i data-lucide="wind"></i>
+                    <span class="label">Wind</span>
+                    <span class="value" id="wind-speed">--</span>
+                </div>
+                <div class="insight-item">
+                    <i data-lucide="thermometer"></i>
+                    <span class="label">Feels Like</span>
+                    <span class="value" id="feels-like">--</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Search form -->
+        <div class="search-wrapper">
+            <div class="search-container glass">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="city-input" placeholder="Search for a city..." autocomplete="off" />
+                <button id="search-btn">Search</button>
+            </div>
+            <div id="suggestions" class="suggestions-list glass hidden"></div>
+        </div>
+
+        <!-- Preset places cards -->
+        <section class="preset-places" id="preset-places">
+            <h3 class="places-title">Popular Places</h3>
+            <div class="place-cards">
+                <div class="place-card glass" id="place-Mbabane">
+                    <h3>Mbabane</h3>
+                    <div class="place-weather">
+                        <span class="place-temp" id="temp-Mbabane">--</span>
+                        <div class="place-icon" id="icon-Mbabane"></div>
+                    </div>
+                </div>
+                <div class="place-card glass" id="place-Manzini">
+                    <h3>Manzini</h3>
+                    <div class="place-weather">
+                        <span class="place-temp" id="temp-Manzini">--</span>
+                        <div class="place-icon" id="icon-Manzini"></div>
+                    </div>
+                </div>
+                <div class="place-card glass" id="place-Lobamba">
+                    <h3>Lobamba</h3>
+                    <div class="place-weather">
+                        <span class="place-temp" id="temp-Lobamba">--</span>
+                        <div class="place-icon" id="icon-Lobamba"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>© 2026 SkyCast Weather</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
