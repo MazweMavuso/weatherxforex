@@ -1,5 +1,30 @@
 // Unified SkyCast script for Weather and Forex
 
+// --- THEME LOGIC ---
+function initTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateToggleIcon(savedTheme);
+
+    themeToggle?.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateToggleIcon(newTheme);
+    });
+
+    function updateToggleIcon(theme) {
+        if (!themeToggle) return;
+        const icon = theme === 'dark' ? 'sun' : 'moon';
+        themeToggle.innerHTML = `<i data-lucide="${icon}"></i>`;
+        lucide.createIcons();
+    }
+}
+
 // --- COMMON UTILS ---
 function formatDate(date) {
     return date.toISOString().split('T')[0];
@@ -67,7 +92,7 @@ function initWeather() {
         locationEl.textContent = city;
         tempEl.textContent = `${Math.round(temperature)}°C`;
         descEl.textContent = description;
-        mainIconEl.innerHTML = `<i data-lucide="${iconName}" size="64"></i>`;
+        mainIconEl.innerHTML = `<i data-lucide="${iconName}" size="64" class="float-icon"></i>`;
         
         // Update new insights
         document.getElementById('daily-insight').textContent = generateInsight(data);
@@ -76,6 +101,7 @@ function initWeather() {
         document.getElementById('feels-like').textContent = `${Math.round(data.hourly.apparent_temperature[0])}°`;
 
         weatherCard.classList.remove('hidden');
+        weatherCard.classList.add('animate-slide-up');
         statusEl.textContent = 'Last updated: Just now';
         lucide.createIcons();
     }
@@ -319,6 +345,11 @@ function initForex() {
         const existingChart = Chart.getChart("growthChart");
         if (existingChart) existingChart.destroy();
 
+        const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+        const color = isDark ? '#ffd700' : '#2563eb';
+        const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+        const textColor = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
+
         new Chart(ctx, {
             type: 'line',
             data: {
@@ -326,14 +357,14 @@ function initForex() {
                 datasets: [{
                     label: targetSymbol,
                     data: values,
-                    borderColor: '#ffd700',
-                    backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                    borderColor: color,
+                    backgroundColor: isDark ? 'rgba(255, 215, 0, 0.1)' : 'rgba(37, 99, 235, 0.1)',
                     borderWidth: 2,
                     fill: true,
                     tension: 0.4,
                     pointRadius: 2,
                     pointHoverRadius: 6,
-                    pointHoverBackgroundColor: '#ffd700',
+                    pointHoverBackgroundColor: color,
                     pointHoverBorderColor: '#fff',
                     pointHoverBorderWidth: 2
                 }]
@@ -346,9 +377,9 @@ function initForex() {
                     legend: { display: false },
                     tooltip: {
                         enabled: true,
-                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                        titleColor: 'rgba(255, 255, 255, 0.7)',
-                        bodyColor: '#ffd700',
+                        backgroundColor: isDark ? 'rgba(15, 23, 42, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+                        titleColor: textColor,
+                        bodyColor: color,
                         bodyFont: { weight: 'bold', size: 14 },
                         padding: 12,
                         cornerRadius: 12,
@@ -360,8 +391,8 @@ function initForex() {
                     }
                 },
                 scales: {
-                    x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.4)', maxRotation: 0, font: { size: 10 } } },
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 10 } } }
+                    x: { grid: { display: false }, ticks: { color: textColor, maxRotation: 0, font: { size: 10 } } },
+                    y: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 10 } } }
                 },
                 onHover: (event, chartElement) => {
                     if (chartElement.length > 0) {
@@ -381,6 +412,7 @@ function initForex() {
 
 // Bootstrapping
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     initWeather();
     initForex();
 });
